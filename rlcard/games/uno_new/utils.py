@@ -11,7 +11,7 @@ from rlcard.games.uno_new.card import UnoCard as Card
 ROOT_PATH = rlcard.__path__[0]
 
 # a map of abstract action to its index and a list of abstract action
-with open(os.path.join(ROOT_PATH, 'games/uno/jsondata/action_space.json'), 'r') as file:
+with open(os.path.join(ROOT_PATH, 'games/uno_new/jsondata/action_space.json'), 'r') as file:
     ACTION_SPACE = json.load(file, object_pairs_hook=OrderedDict)
     ACTION_LIST = list(ACTION_SPACE.keys())
 
@@ -98,7 +98,7 @@ def encode_hand(plane, hand):
         (array): 3*4*15 numpy array
     '''
     # plane = np.zeros((3, 4, 15), dtype=int)
-    plane[0] = np.ones((4, 15), dtype=int)
+    plane[0] = np.ones((4, 16), dtype=int)
     hand = hand2dict(hand)
     for card, count in hand.items():
         card_info = card.split('-')

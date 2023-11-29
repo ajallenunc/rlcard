@@ -22,7 +22,7 @@ class UnoEnv(Env):
         self.action_shape = [None for _ in range(self.num_players)]
 
     def _extract_state(self, state):
-        obs = np.zeros((4, 4, 15), dtype=int)
+        obs = np.zeros((4, 4, 16), dtype=int)
         encode_hand(obs[:3], state['hand'])
         encode_target(obs[3], state['target'])
         legal_action_id = self._get_legal_actions()

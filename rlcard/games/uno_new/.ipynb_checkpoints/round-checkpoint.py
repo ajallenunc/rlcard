@@ -1,5 +1,5 @@
-from rlcard.games.uno.card import UnoCard
-from rlcard.games.uno.utils import cards2list, WILD, WILD_DRAW_4
+from rlcard.games.uno_new.card import UnoCard
+from rlcard.games.uno_new.utils import cards2list, WILD, WILD_DRAW_4
 
 
 class UnoRound:
@@ -223,5 +223,13 @@ class UnoRound:
                 #return None
             self.dealer.deal_cards(players[(current + direction) % num_players], 4)
             current = (current + direction) % num_players
+        
+        #swap
+        elif card.trait == 'swap':
+            # Implement logic to choose which player to swap with
+            swap_player_id = (self.current_player + self.direction) % self.num_players
+            players[self.current_player].hand, players[swap_player_id].hand = \
+                players[swap_player_id].hand, players[self.current_player].hand
+        
         self.current_player = (current + self.direction) % num_players
         self.target = card

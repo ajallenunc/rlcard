@@ -31,9 +31,9 @@ class UnoDealer:
         Returns:
             (object): The object of UnoCard at the top of the deck
         '''
-    top_card = self.deck.pop()
-    while top_card.trait in ['wild_draw_4', 'swap']:  # Include 'swap' in the check
-        self.deck.append(top_card)
-        self.shuffle()
         top_card = self.deck.pop()
-    return top_card
+        while top_card.trait in ['wild_draw_4', 'swap']:  # Include 'swap' in the check
+            self.deck.append(top_card)
+            self.shuffle()
+            top_card = self.deck.pop()
+        return top_card
