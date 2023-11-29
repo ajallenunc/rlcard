@@ -5,23 +5,23 @@ from collections import OrderedDict
 
 import rlcard
 
-from rlcard.games.uno.card import UnoCard as Card
+from rlcard.games.uno_new.card import UnoCard as Card
 
 # Read required docs
 ROOT_PATH = rlcard.__path__[0]
 
 # a map of abstract action to its index and a list of abstract action
-with open(os.path.join(ROOT_PATH, 'games/uno/jsondata/action_space.json'), 'r') as file:
+with open(os.path.join(ROOT_PATH, 'games/uno_new/jsondata/action_space.json'), 'r') as file:
     ACTION_SPACE = json.load(file, object_pairs_hook=OrderedDict)
     ACTION_LIST = list(ACTION_SPACE.keys())
 
 # a map of color to its index
 COLOR_MAP = {'r': 0, 'g': 1, 'b': 2, 'y': 3}
 
+# a map of trait to its index
 TRAIT_MAP = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
              '8': 8, '9': 9, 'skip': 10, 'reverse': 11, 'draw_2': 12,
-             'wild': 13, 'wild_draw_4': 14}
-
+             'wild': 13, 'wild_draw_4': 14, 'swap':15}
 
 WILD = ['r-wild', 'g-wild', 'b-wild', 'y-wild']
 
@@ -46,6 +46,10 @@ def init_deck():
             deck.append(Card('action', color, action))
             deck.append(Card('action', color, action))
             
+        # Initialize "Swap" cards
+        deck.append(Card('action', color, 'swap'))
+        deck.append(Card('action', color, 'swap'))
+
         # init wild cards
         for wild in card_info['trait'][-2:]:
             deck.append(Card('wild', color, wild))
@@ -94,7 +98,7 @@ def encode_hand(plane, hand):
         (array): 3*4*15 numpy array
     '''
     # plane = np.zeros((3, 4, 15), dtype=int)
-    plane[0] = np.ones((4, 15), dtype=int)
+    plane[0] = np.ones((4, 16), dtype=int)
     hand = hand2dict(hand)
     for card, count in hand.items():
         card_info = card.split('-')
