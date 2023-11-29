@@ -141,7 +141,7 @@ class UnoGame:
         Returns:
             (int): The number of actions. There are 61 actions
         '''
-        return 61
+        return 65
 
     def get_player_id(self):
         ''' Return the current player's id
